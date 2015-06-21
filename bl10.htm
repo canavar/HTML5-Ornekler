@@ -1,0 +1,148 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>10. Bölüm : HTML5 Web Workers ile Threading</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+</head>
+<script>
+    function longRunningProcess() {
+        var i = 0;
+        while (i < 20000000000) {
+            i++;
+        }
+        document.getElementById('status').innerHTML = "Bitti.";
+        return;
+    }
+
+    var worker;
+    function createWorker() {
+        if (typeof Worker != undefined) {
+            worker = new Worker('scripts/worker_example.js');
+            document.getElementById("divWorkers").innerHTML = "Worker oluşturuldu !";
+
+            worker.onmessage = function (event) {
+                document.getElementById("divWorkers").innerHTML += "<br />" + event.data;
+            };
+
+            var setCount = document.getElementById('txtSetCount').value;
+            var processCount = document.getElementById('txtSetProcessCount').value;
+            worker.postMessage({ 'setCount': setCount, 'processCount': processCount });
+        }
+    }
+
+    function terminateWorker() {
+        worker.terminate();
+        document.getElementById("divWorkers").innerHTML += "<br />Worker yokedildi !";
+    }
+</script>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>10. Bölüm : HTML5 Web Workers ile Threading</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>HTML5 Web Workers'a neden ihtiyacımız var ?</summary>
+
+        Çalışma durumu : <div id=status>Henüz Çalışmıyor</div>
+        HTML5 öncesi tek thread ile uzun çalışan bir iş : <input type="button" onclick="document.getElementById('status').innerHTML = 'Başlıyor...';return longRunningProcess();" value="Çalıştır" />
+        <div class="code">
+            function longRunningProcess() {<br />
+            &nbsp;&nbsp;&nbsp;var i = 0;<br />
+            &nbsp;&nbsp;&nbsp;while (i < 20000000000) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i++;<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;document.getElementById('status').innerHTML = "Bitti.";<br />
+            &nbsp;&nbsp;&nbsp;return;<br />
+            }<br />
+        </div>
+
+    </details>
+
+    <details>
+        <summary>Merhaba Web Workers : Demo</summary>
+
+        <div id=divWorkers></div>
+        Set sayısı : <input id=txtSetCount value=5 /><br />
+        Set başına iş sayısı : <input id=txtSetProcessCount value=10000000 /><br />
+        <input type="button" onclick="createWorker();" value="Worker Oluştur" />
+        <input type="button" onclick="terminateWorker();" value="Workerı Yoket" />
+
+    </details>
+
+    <details>
+        <summary>Merhaba Web Workers : AnaSayfa Kodu</summary>
+
+        <div class="code">
+            var worker;<br />
+            function createWorker() {<br />
+            &nbsp;&nbsp;&nbsp;if (typeof Worker != undefined) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;worker = <mark>new Worker('scripts/worker_example.js');</mark><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("divWorkers").innerHTML = "Worker oluşturuldu !";<br />
+                    <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mark>worker.onmessage</mark> = function (event) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("divWorkers").innerHTML += event.data;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};<br />
+                    <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var setCount = document.getElementById('txtSetCount').value;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var processCount = document.getElementById('txtSetProcessCount').value;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mark>worker.postMessage</mark>({ 'setCount': setCount, 'processCount': processCount });<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+            <br />
+            function terminateWorker() {<br />
+                <mark>worker.terminate();</mark><br />
+                document.getElementById("divWorkers").innerHTML += "Worker yokedildi !";<br />
+            }<br />
+        </div>
+
+    </details>
+
+    <details>
+        <summary>Merhaba Web Workers : Worker Kodu</summary>
+
+        <div class="code">
+            // worker_example.js<br />
+            // importScripts('another_js_lib.js','yet_another_js_lib.js');<br /><br />
+            this.onmessage = function (event) {<br />
+            &nbsp;&nbsp;&nbsp;<mark>postMessage('Worker calismaya basladi.');</mark><br />
+            &nbsp;&nbsp;&nbsp;var data = <mark>event.data;</mark><br />
+                <br />
+            &nbsp;&nbsp;&nbsp;var currentSet = 1;<br />
+            &nbsp;&nbsp;&nbsp;for (var currentProcess = 0; currentProcess <= data.processCount; currentProcess++) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currentProcess == data.processCount) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postMessage(currentSet + '. set bitti.');<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currentSet++;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currentProcess = 0;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currentSet == data.setCount) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;postMessage('Worker calismayi bitirdi.');<br />
+            &nbsp;&nbsp;&nbsp;<mark>close();</mark><br />
+            };<br />
+        </div>
+
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

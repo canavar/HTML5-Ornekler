@@ -1,0 +1,32 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>9. Bölüm : HTML5 Web Messaging API</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+</head>
+<body>
+
+    <h4>Dış Kaynak Sayfaya Gelen Mesajlar : </h4>
+    <div id="divMessages"></div>
+    
+    <script type="text/javascript">
+
+        window.addEventListener('message', function (event) {
+            if (event.origin == "http://merhanersoy.net") {
+                document.getElementById('divMessages').innerHTML += 'Gelen Mesaj : ' + event.data + '<br />';
+                var returnMessage = 'Gönderdiğiniz mesaj alındı.';
+                event.source.postMessage(returnMessage, event.origin);
+                document.getElementById('divMessages').innerHTML += 'Gönderilen Mesaj : ' + returnMessage + '<br />';
+            } else {
+                document.getElementById('divMessages').innerHTML += 'Gelen Mesaj Reddedildi.';
+            }
+        }, false);
+    </script>
+
+</body>
+</html>
+
+

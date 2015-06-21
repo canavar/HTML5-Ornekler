@@ -1,0 +1,74 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>12. Bölüm : HTML5 History API</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <script type="text/javascript">
+        function goTo(url) {
+            
+        }
+    </script>
+
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>12. Bölüm : HTML5 History API</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>History Nesnesi</summary>
+        <ul>
+            <li>window.history.go(n)</li>
+            <li>window.history.back()</li>
+            <li>window.history.forward()</li>
+            <li>window.history.pushState(data, title [, url])</li>
+            <li>window.history.replaceState(data, title [, url])</li>
+        </ul>
+
+        <div class=code>
+            window.history.go(-2);
+        </div>
+
+        <a href="http://diveintohtml5.info/examples/history/fer.html" target="_blank">History API Demo</a>
+        
+    </details>
+
+    <details>
+        <summary>popstate event'i ve history.state</summary>
+        
+        <h4>pushState ile state ekleme : </h4>
+        <div class="code">
+            history.pushState({foo: 'bar'}, <br />
+            &nbsp;&nbsp;&nbsp;'Sayfa Başlığı',  <br />
+            &nbsp;&nbsp;&nbsp;'/bar.htm'); <br />
+        </div>
+
+        <h4>popState ile state'i alma : </h4>
+        <div class="code">
+            window.addEventListener("popstate", function(e) { <br />
+            &nbsp;&nbsp;&nbsp;var foo = history.state.foo; <br />
+            }, false); <br />
+        </div>
+        
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>

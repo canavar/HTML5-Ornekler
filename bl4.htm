@@ -1,0 +1,299 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>4. Bölüm : HTML5 Canvas ve SVG</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <script>
+        function fillRect() {
+            var ctx = document.getElementById('canvas1').getContext("2d");
+
+            var x = 10;
+            var y = 20;
+            var width = 100;
+            var height = 50;
+            ctx.fillStyle = '#DD4B39';
+            ctx.fillRect(x, y, width, height);
+            code1.innerHTML = fillRect;//.replace('\r\n', '<br>');
+        }
+
+        function strokeRect() {
+            var ctx = document.getElementById('canvas1').getContext("2d");
+
+            var x = 9;
+            var y = 19;
+            var width = 102;
+            var height = 52;
+            ctx.strokeStyle = '#222222';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x, y, width, height);
+            code1.innerHTML = strokeRect; //.replace('\r\n', '<br>');
+        }
+
+        function gradientRect() {
+            var canvas = document.getElementById('canvas1');
+            var ctx = canvas.getContext("2d");
+
+            var x = 130;
+            var y = 20;
+            var width = 100;
+            var height = 120;
+
+            var gradientX0 = 0;
+            var gradientX1 = 0;
+            var gradientY0 = 0;
+            var gradientY1 = height;
+
+            gradient = ctx.createLinearGradient(gradientX0, gradientX1, gradientY0, gradientY1);
+            gradient.addColorStop(0, '#000');
+            gradient.addColorStop(1, '#fff');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(x, y, width, height);
+            code1.innerHTML = gradientRect;
+        }
+
+        function clearRect() {
+            var ctx = document.getElementById('canvas1').getContext("2d");
+
+            var x = 15;
+            var y = 25;
+            var width = 60;
+            var height = 30;
+            ctx.clearRect(x, y, width, height);
+            code1.innerHTML = clearRect; //.replace('\r\n', '<br>');
+        }
+
+        function resetCanvas() {
+            var canvas = document.getElementById('canvas1');
+
+            canvas.height = canvas.height;
+            code1.innerHTML = resetCanvas; //.replace('\r\n', '<br>');
+        }
+
+        function strokeLine() {
+            var context = document.getElementById('canvas2').getContext("2d");
+
+            var x = 100;
+            var y = 100;
+
+            context.beginPath();
+            context.moveTo(x, 0);
+            context.lineTo(x, 2 * y);
+
+            context.strokeStyle = "#222222";
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(0, y);
+            context.lineTo(2 * x, y);
+
+            context.strokeStyle = "#DD4B39";
+            context.stroke();
+
+            code2.innerHTML = strokeLine;
+        }
+
+        function drawCircle() {
+            var x = 100;
+            var y = 100;
+            var r = 50;
+            var startPoint = 0;
+            var endPoint = Math.PI * 2;
+            var isClockwise = true;
+
+            var context = document.getElementById('canvas2').getContext("2d");
+            context.beginPath();
+            context.arc(x, y, r, startPoint, endPoint, isClockwise);
+
+            // Çemberin içini doldurup daire Yapar : 
+            //context.fill();
+
+            context.strokeStyle = '#0000ff';
+            context.stroke();
+
+            code2.innerHTML = drawCircle;
+        }
+
+        function drawText() {
+            var x = 40;
+            var y = 60;
+
+            var context = document.getElementById('canvas3').getContext("2d");
+            context.font = "bold 13px sans-serif";
+            context.fillStyle = "#DD4B39";
+            context.fillText("Merhaba", x, y);
+
+            code3.innerHTML = drawText;
+        }
+
+        function drawImage() {
+            var x = 90;
+            var y = 80;
+
+            var context = document.getElementById('canvas3').getContext("2d");
+            var html5Logo = new Image();
+            html5Logo.src = "images/logo.png";
+            html5Logo.onload = function () {
+                context.drawImage(html5Logo, x, y);
+            };
+
+            code3.innerHTML = drawImage;
+        }
+
+        function scaleImage() {
+
+            var x = 60;
+            var y = 60;
+            var width = 120;
+            var height = 50;
+
+            var canvas = document.getElementById('canvas3');
+            var context = canvas.getContext("2d");
+            // Reset Canvas  :
+            canvas.height = canvas.height;
+
+            var html5Logo = new Image();
+            html5Logo.src = "images/logo.png";
+            html5Logo.onload = function () {
+                context.drawImage(html5Logo, x, y, width, height);
+            };
+
+            code3.innerHTML = scaleImage;
+        }
+
+        function saveImage() {
+
+            var x = 60;
+            var y = 60;
+            var width = 120;
+            var height = 50;
+
+            var x = 100;
+            var y = 100;
+
+            var context = document.getElementById('canvas3').getContext("2d");
+            context.beginPath();
+            context.moveTo(x, 0);
+            context.lineTo(x, 2 * y);
+
+            context.strokeStyle = "#222222";
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(0, y);
+            context.lineTo(2 * x, y);
+
+            context.strokeStyle = "#DD4B39";
+            context.stroke();
+
+            window.location = context.canvas.toDataURL('image/png');
+
+            code3.innerHTML = saveImage;
+        }
+
+        //*window.location = ctx.canvas.toDataURL(‘image/png’);
+        
+    </script>
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>4. Bölüm : HTML5 Canvas ve SVG</h4> 
+        </hgroup>
+    </header>
+</div> 
+
+    <details>
+        <summary>Canvas Elemanı ve Dörtgenler</summary>
+        <p>
+            <span class=code>&lt;canvas id="canvas1"&gt;&lt;/canvas&gt;</span>
+        </p>
+
+        <canvas id="canvas1"></canvas>
+        <h4>Çalışan function : </h4>
+        <div class=code id=code1></div>
+        <br />
+
+        <button onclick="fillRect();">İçi Dolu Dörtgen Oluştur</button>
+        <button onclick="strokeRect();">İçi Boş Dörtgen Oluştur</button>
+        <button onclick="gradientRect();">Gradient Dörtgen Oluştur</button>
+        <button onclick="clearRect();">Dörtgeni Temizle</button>
+        <button onclick="resetCanvas();">Canvası Temizle</button>
+    </details>
+
+    <details>
+        <summary>Çizgiler (Paths)</summary>
+
+        <canvas id="canvas2" width="200" height="200"></canvas>
+        <h4>Çalışan function : </h4>
+        <div class=code id=code2></div>
+        <br />
+
+        <button onclick="strokeLine();">Doğru Çiz</button>
+        <button onclick="drawCircle();">Çember Çiz</button>
+    </details>
+
+    <details>
+        <summary>Metinler (Texts) ve Resimler</summary>
+
+        <canvas id="canvas3" width="200" height="200"></canvas>
+        <h4>Çalışan function : </h4>
+        <div class=code id=code3></div>
+        <br />
+
+        <button onclick="drawText();">Metin Çiz</button>
+        <button onclick="drawImage();">Resim Çiz</button>
+        <button onclick="scaleImage();">Resmi Ölçekle</button>
+        <button onclick="saveImage();">Resmi Kaydet</button>
+    </details>
+
+    <details>
+        <summary>SVG : Scalable Vector Graphics</summary>
+
+        <svg height="400" width="400">
+            <circle cx="50" cy="50" r="50" fill="red"></circle>
+	        <rect x="5" y="50" width="150" height="30" style="fill:yellow"/>
+	        <text style="font-size:20;stroke:blue" x="10" y="170">SVG vs. Canvas ?</text>
+	        <image xlink:href="images/google_code_logo.png" x="140" y="10" width="60" height="60" />
+	        <polyline points="20,200 20,230 50,230 50,250 100,250 100,280" fill="green" x="20" y="200" />
+        </svg>
+
+        <div class="code"><br />
+            &lt;svg height="400" width="400"&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;circle cx="50" cy="50" r="50" fill="red"&gt;&lt;/circle&gt;<br />
+	        &nbsp;&nbsp;&nbsp;&lt;rect x="5" y="50" width="150" height="30" style="fill:yellow"/&gt;<br />
+	        &nbsp;&nbsp;&nbsp;&lt;text style="font-size:20;stroke:blue" x="10" y="170"&gt;SVG vs. Canvas ?&lt;/text&gt;<br />
+	        &nbsp;&nbsp;&nbsp;&lt;image xlink:href="images/google_code_logo.png" x="140" y="10" width="60" height="60" /&gt;<br />
+	        &nbsp;&nbsp;&nbsp;&lt;polyline points="20,200 20,230 50,230 50,250 100,250 100,280" fill="green" x="20" y="200" /&gt;<br />
+            &lt;/svg&gt;
+        </div>
+
+    </details>
+
+    <details>
+        <summary>Linkler</summary>
+        <p>
+            1. <a href="http://mugtug.com/sketchpad/">HTML5 Scetchpad</a> <br />
+            2. <a href="http://devfiles.myopera.com/articles/26/ex-c01.svg">SVG ile Saat Animasyonu</a> <br />
+            3. <a href="http://dev.opera.com/articles/view/animating-your-svg/">SVG ile Animasyon Makalesi</a> <br />
+        </p>
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

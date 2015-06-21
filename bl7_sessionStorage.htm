@@ -1,0 +1,104 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>7. Bölüm : Local storage, Session storage ve Web SQL Veritabanları ile veri saklama</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <script type="text/javascript">
+        function setToSessionStorage(text) {
+            // sessionStorage.setItem('demoVariable', text);
+            sessionStorage.demoVariable = text;
+        }
+
+        function getFromSessionStorage() {
+            // return sessionStorage.getItem('demoVariable');
+            return sessionStorage.demoVariable;
+        }
+
+        function deleteFromSessionStorage() {
+            // sessionStorage.removeItem('demoVariable');
+            delete sessionStorage.demoVariable;
+        }
+
+        function clearSessionStorage() {
+            var storageLength = sessionStorage.length;
+            sessionStorage.clear();
+            alert(storageLength + ' tane kayıt sessionStorage\'dan silindi.');
+        }
+
+        function listSessionStorage() {
+            for (var i = 0; i < sessionStorage.length; i++) {
+                var currentKey = sessionStorage.key(i);
+                alert(currentKey + ' : ' + sessionStorage.getItem(currentKey));
+            }
+        }
+    </script>
+
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>7. Bölüm : Local storage, Session storage ve Web SQL Veritabanları ile veri saklama</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>Session Storage Lab</summary>
+        <input type="text" id="txtValue" /><br />
+        <input type="button" value="sessionStorage'a Kaydet" onclick="setToSessionStorage(document.getElementById('txtValue').value);" />
+        <input type="button" value="sessionStorage'dan Oku" onclick="alert('Saklanan değer : ' + getFromSessionStorage());" />
+        <input type="button" value="sessionStorage'dan Sil" onclick="deleteFromSessionStorage();" />
+        <input type="button" value="sessionStorage'ı Temizle" onclick="clearSessionStorage();" />
+        <input type="button" value="sessionStorage'ı Listele" onclick="listSessionStorage();" />
+
+        <div class=code>
+            function setToSessionStorage(text) {<br />
+            &nbsp;&nbsp;&nbsp;// sessionStorage.setItem('demoVariable', text);<br />
+            &nbsp;&nbsp;&nbsp;sessionStorage.demoVariable = text;<br />
+            }<br />
+            <br />
+            function getFromSessionStorage() {<br />
+            &nbsp;&nbsp;&nbsp;// return sessionStorage.getItem('demoVariable');<br />
+            &nbsp;&nbsp;&nbsp;return sessionStorage.demoVariable;<br />
+            }<br />
+            <br />
+            function deleteFromSessionStorage() {<br />
+            &nbsp;&nbsp;&nbsp;// sessionStorage.removeItem('demoVariable');<br />
+            &nbsp;&nbsp;&nbsp;delete sessionStorage.demoVariable;<br />
+            }<br />
+            <br />
+            function clearSessionStorage() {<br />
+            &nbsp;&nbsp;&nbsp;var storageLength = sessionStorage.length;<br />
+            &nbsp;&nbsp;&nbsp;sessionStorage.clear();<br />
+            &nbsp;&nbsp;&nbsp;alert(storageLength + ' tane kayıt sessionStorage\'dan silindi.');<br />
+            }<br />
+            <br />
+            function listSessionStorage() {<br />
+            &nbsp;&nbsp;&nbsp;for (var i = 0; i < sessionStorage.length; i++) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var currentKey = sessionStorage.key(i);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(currentKey + ' : ' + sessionStorage.getItem(currentKey));<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+        </div>
+
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

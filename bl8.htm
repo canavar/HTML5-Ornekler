@@ -1,0 +1,227 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>8. Bölüm : HTML5 Geolocation API</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <script type="text/javascript">
+        function onPosition(position) {
+            document.getElementById('divCoordinates').innerHTML =
+            'Enlem : ' + position.coords.latitude +
+            ' <br />Boylam : ' + position.coords.longitude +
+            ' <br />Hassaslık : ' + position.coords.accuracy + ' metre';
+        }
+
+        function onError(error) {
+            if (error.code == 0) {
+                msg = "Yer bilgisi alınamıyor.";
+            } else if (error.code == 1) {
+                msg = "Yer bilgisi alınamıyor. (erişim izni yok)";
+            } else if (error.code == 2) {
+                msg = "Yer bilgisi alınamıyor. (pozisyon erişilebilir değil)";
+            } else if (error.code == 3) {
+                msg = "Yer bilgisi alınamıyor. (zaman aşımı)";
+            }
+        }
+
+        function getCoordinates() {
+
+            if (navigator.geolocation) {
+
+                var optionalOptions = {
+                    enableHighAccuracy: false,
+                    timeout: 3000, // millisecs
+                    maximumAge: 10000 // cache location for maximumAge millisecs.
+                };
+
+                navigator.geolocation.getCurrentPosition(onPosition, onError, optionalOptions);
+
+                /*
+                // API KEY Lazım...
+                // Integrate to google maps :
+                var map = document.getElementById('divMap');
+                map.style.width = '640px';
+                var width = map.offsetWidth;
+                var height = map.offsetHeight;
+                var img = document.createElement('img');
+
+                var api_key = "ABQIAAAAyYu8a7AdbfUctK3zwwu_2hRiqa4lAErhIKQpMSh2VM2ZH-erRhT2odI5PGolzAVYkrxCnViXM1j-MQ";
+                img.src = 'http://maps.google.com/maps/api/staticmap' +
+                '?mobile=true&size=' + width + 'x' + height +
+                '&sensor=true&key=' + api_key +
+
+                '&markers=color:blue|' + position.coords.latitude +
+                ',' + position.coords.longitude;
+                map.appendChild(img); 
+                */
+
+            } else {
+                document.getElementById('divCoordinates').innerHTML = "Tarayıcınız HTML5 GeoLocation API'yi desteklemiyor.";
+            }
+        }
+
+        var watchId = 0;
+        function startWatch() {
+            
+            if (navigator.geolocation) {
+
+                var optionalOptions = {
+                    enableHighAccuracy: true,
+                    timeout: 3000, // millisecs
+                    maximumAge: 10000 // cache location for maximumAge millisecs.
+                };
+
+                watchId = navigator.geolocation.watchPosition(
+                    function (position) {
+                        document.getElementById('divSpeed').innerHTML = 'Enlem : ' + position.coords.latitude +
+                                                                        ' <br />Boylam : ' + position.coords.longitude +
+                                                                        ' <br />Hız : ' + (position.coords.speed * 60 * 60) / 1000 + ' km/h' +
+                                                                        ' <br />Yön : ' + position.coords.heading + ' &deg;' +
+                                                                        ' <br />İrtifa : ' + position.coords.altitude + ' m';
+                    },
+                    onError, optionalOptions);
+
+            } else {
+                    document.getElementById('divSpeed').innerHTML = "Tarayıcınız HTML5 GeoLocation API'yi desteklemiyor.";
+                }
+
+            }
+
+            function clearWatch() {
+                if (watchId !== null && watchId !== 0) {
+                    navigator.geolocation.clearWatch(watchId);
+                }
+            }
+    </script>
+
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>8. Bölüm : HTML5 Geolocation API</h4> 
+        </hgroup>
+    </header> 
+</div>
+    
+
+    <details>
+        <summary>GeoLocation API</summary>
+
+        <p>Tarayıcının GeoLocation desteğini test etmek için : </p>
+        <div class=code>
+            <mark>if (navigator.geolocation)</mark> {<br />
+            &nbsp;&nbsp;&nbsp;document.getElementById('divCoordinates').innerHTML = "Tarayıcınız HTML5 GeoLocation API'yi destekliyor.";<br />
+            } else {<br />
+            &nbsp;&nbsp;&nbsp;document.getElementById('divCoordinates').innerHTML = "Tarayıcınız HTML5 GeoLocation API'yi desteklemiyor.";<br />
+            }<br />
+        </div>
+
+        <p>Asenkron GeoLocation API metodlarının parametreleri</p>
+        <ul>
+            <li>Başarı durumunda ne yapılacak</li>
+            <li>Hata durumunda ne yapılacak</li>
+            <li>GeoLocation seçenekleri</li>
+        </ul>
+        <div class=code>
+            function onPosition(position) {<br />
+            &nbsp;&nbsp;&nbsp;document.getElementById('divCoordinates').innerHTML =<br />
+            &nbsp;&nbsp;&nbsp;'Enlem : ' + <mark>position.coords.latitude</mark> +<br />
+            &nbsp;&nbsp;&nbsp;' Boylam : ' + <mark>position.coords.longitude</mark> +<br />
+            &nbsp;&nbsp;&nbsp;' Hassaslık : ' + <mark>position.coords.accuracy</mark>;<br />
+            }<br /><br />
+
+            function onError(error) {<br />
+            &nbsp;&nbsp;&nbsp;if (<mark>error.code</mark> == 0) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg = "Yer bilgisi alınamıyor.";<br />
+            &nbsp;&nbsp;&nbsp;} else if (error.code == 1) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg = "Yer bilgisi alınamıyor. (erişim izni yok)";<br />
+            &nbsp;&nbsp;&nbsp;} else if (error.code == 2) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg = "Yer bilgisi alınamıyor. (pozisyon erişilebilir değil)";<br />
+            &nbsp;&nbsp;&nbsp;} else if (error.code == 3) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg = "Yer bilgisi alınamıyor. (zaman aşımı)";<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+            <br />
+            var optionalOptions = {<br />
+            &nbsp;&nbsp;&nbsp;<mark>enableHighAccuracy</mark>: false,<br />
+            &nbsp;&nbsp;&nbsp;<mark>timeout</mark>: 3000, // millisecs<br />
+            &nbsp;&nbsp;&nbsp;<mark>maximumAge</mark>: 10000 // cache location for maximumAge millisecs.<br />
+            };
+        </div>
+
+        <figure>
+            <img src="images/geolocation_access_warning.jpg" />
+            <figcaption>Tarayıcıların HTML5 GeoLocation API erişim uyarı mesajı</figcaption>
+        </figure>
+    </details>
+
+    <details>
+        <summary>navigator.getCurrentPosition metodu</summary>
+        <input type="button" value="Koordinatları Al" onclick="getCoordinates();" />
+        <div id="divCoordinates"></div>
+        <div class=code>
+            navigator.geolocation.getCurrentPosition(onPosition, onError, optionalOptions);<br />
+        </div>
+    </details>
+
+    <details>
+        <summary>navigator.watchPosition metodu</summary>
+        <p>coords nesnesinden alınabilecek değerler : </p>
+        <ul>
+            <li>altitude</li>
+            <li>altitudeAccuracy</li>
+            <li>heading</li>
+            <li>speed (m/sn)</li>
+        </ul>
+
+        <input type="button" value="İzlemeyi Başlat" onclick="startWatch();" />
+        <input type="button" value="İzlemeyi Kes" onclick="clearWatch();" />
+        <div id="divSpeed"></div>
+
+        <div class=code>
+            var optionalOptions = {<br />
+            &nbsp;&nbsp;&nbsp;enableHighAccuracy: true<br />
+            };<br />
+            <br />
+            watchId = navigator.geolocation.watchPosition(<br />
+            &nbsp;&nbsp;&nbsp;function (position) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('divSpeed').innerHTML = 'Hız : ' + (<mark>position.coords.speed</mark> * 60 * 60) / 1000 + ' km/h' + <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' Yön : ' + position.coords.heading + ' &deg;' + <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' İrtifa : ' + position.coords.altitude + ' m'; <br />
+            &nbsp;&nbsp;&nbsp;},<br />
+            &nbsp;&nbsp;&nbsp;onError, optionalOptions);<br />
+        </div>
+
+        <figure>
+            <img src="images/geolocation_watch_position_results.jpg" />
+            <figcaption>Hareket halinde iken GeoLocation API watchPosition sonuçları</figcaption>
+        </figure>
+    </details>
+
+    <details>
+        <summary>navigator.clearWatch metodu</summary>
+        <div class=code>
+            function clearWatch() {<br />
+            &nbsp;&nbsp;&nbsp;if (watchId !== null && watchId !== 0) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;navigator.geolocation.clearWatch(watchId);<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }
+        </div>
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>

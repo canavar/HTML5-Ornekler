@@ -1,0 +1,250 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>2. Bölüm : Yeni form tagları ve form doğrulama</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>2. Bölüm : Yeni form tagları ve form doğrulama</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>Yeni form özelliği (form attribute)</summary>
+        <p>
+            Form giriş elemanlarının artık &lt;form&gt; tagı içinde olma zorunluluğu yok.
+        </p>
+        <div class=code>
+            &lt;form id="html5Form"&gt;<br />
+                &nbsp;&nbsp;&nbsp;&lt;input type="text"&gt;&lt;/input&gt;<br />
+                &nbsp;&nbsp;&nbsp;&lt;input type="submit" value="Gönder"&gt;&lt;/input&gt;<br />
+            &lt;/form&gt;<br />
+            &lt;input type="text" <mark>form="html5Form"</mark>&gt;&lt;/input&gt;<br />
+        </div>
+    </details>
+
+    <details>
+        <summary>Number form elemanı</summary>
+        <form id="numberForm">
+            <input type="number" required="true" min="0" max="100" step="5" /> (min="0" max="100" step="5")<br />
+            <input type="submit" value="Gönder" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="number" required="true" min="0" max="100" step="5" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Range form elemanı</summary>
+        <form id="rangeForm">
+            <input type="range" min="0" max="10" id="rangeInp" /><br />
+            <input type="submit" value="Gönder" onclick="alert('Değer : ' + document.getElementById('rangeInp').value); return false;" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="range" min="0" max="10" id="rangeInp" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Date, Time ve DateTime form elemanları</summary>
+        <form id="dateForm">
+            Date : <input type="date" required="true" /><br />
+            Time : <input type="time" required="true" /><br />
+            DateTime : <input type="datetime" required="true" /><br />
+            <input type="submit" value="Gönder" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="date" required="true" /&gt;<br />
+            &lt;input type="time" required="true" /&gt;<br />
+            &lt;input type="datetime" required="true" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Month ve Week form elemanı</summary>
+        <form id="monthForm">
+            <input type="month" required="true" /><br />
+            <input type="week" required="true" /><br />
+            <input type="submit" value="Gönder" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="month" required="true" /&gt;<br />
+            &lt;input type="week" required="true" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Email form elemanı</summary>
+        <form id="emailForm">
+            <input type="email" multiple="true" required="true"  /><br />
+            <input type="submit" value="Gönder" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="email" multiple="true" required="true" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Url form elemanı</summary>
+        <form id="urlForm">
+            <input type="url" required="true" /><br />
+            <input type="submit" value="Gönder" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="url" required="true" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Tel form elemanı</summary>
+        <form id="telForm">
+            <input type="tel" placeholder="+90.2129999999" pattern="^\+([\d]{0,3})\.([\d]{7,10})$" /><br />
+            <input type="submit" value="Gönder" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="tel" placeholder="+90.2129999999" pattern="^\+([\d]{0,3})\.([\d]{7,10})$" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Color form elemanı</summary>
+        <form id="colorForm">
+            <input type="color" /><br />
+            <input type="submit" value="Gönder" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="color" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Search form elemanı</summary>
+        <form id="searchForm">
+            <input type=search results=5 name=search1 autosave="merhanersoy.net"><br />
+            <input type="submit" value="Gönder" />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type=search results=5 name=search1 autosave="merhanersoy.net" /&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Output form elemanı</summary>
+        <form id="outputForm">
+            <input type="range" min="0" max="10" name="range1" /><br />
+            <output form="outputForm" onforminput="this.value=range1.value;"></output><br />
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="range" min="0" max="10" name="range1" /&gt;<br />
+            &lt;output form="outputForm" onforminput="this.value=range1.value;"&gt;&lt;/output&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>DataList elemanı ve list özelliği</summary>
+        <form id="datalistForm">
+            <input type="text" list="searchList">
+            <datalist id="searchList">
+                <option label="html4" value="html4">
+                <option label="html5" value="html5">
+                <option label="css3" value="css3">
+            </datalist>
+        </form>
+        <br />
+        <div class=code>
+            &lt;input type="text" <mark>list="searchList"</mark> /&gt;<br />
+            &lt;datalist id="searchList"&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;option label="html5" value="html5"&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;option label="css3" value="css3"&gt;<br />
+            &lt;/datalist&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Form elemanlarına yeni özellikler</summary>
+        <ul>
+            <li>min</li>
+            <li>max</li>
+            <li>step</li>
+            <li>autofocus</li>
+            <li>autocomplete</li>
+            <li>placeholder</li>
+            <li>pattern</li>
+            <li>multiple (fileupload ??)</li>
+            <li>required</li>
+            <li>list</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Doğrulama APIsi</summary>
+        <form id="validationDomForm">
+            <input name="url1" type="url" required="true" /><br />
+            <button onclick="alert('Url form elemanı doğrulanacak mı : ' + url1.willValidate); return false;" style="width:200px;">Url elemanı doğrulanacak mı ?</button><br />
+            <button onclick="url1.setCustomValidity(url1.value + ' uygun bir URL değil.');return false;" style="width:200px;">Doğrulama mesajını değiştir</button><br />
+            <button onclick="alert('Girilen değer uygun mu : ' + url1.checkValidity()); return false;" style="width:200px;">Girilen değer uygun mu ?</button><br />
+            <button onclick="alert('Url form elemanının uygunluk durumu : ' + url1.validity.valueMissing); return false;" style="width:200px;">Uygunluk durumu</button><br />
+            <input type="submit" value="Gönder"  style="width:200px;"/>
+
+        </form>
+        <br />
+        <div class=code>
+            &lt;input name="url1" type="url" required="true" /&gt;<br />
+            &lt;button onclick="alert('Url form elemanı doğrulanacak mı : ' + <mark>url1.willValidate</mark>); return false;"&gt;Url elemanı doğrulanacak mı ?&lt;/button&gt;<br />
+            &lt;button onclick="<mark>url1.setCustomValidity(url1.value + ' uygun bir URL değil.');</mark>return false;"&gt;Doğrulama mesajını değiştir&lt;/button&gt;<br />
+            &lt;button onclick="alert('Girilen değer uygun mu : ' + <mark>url1.checkValidity()</mark>); return false;"&gt;Girilen değer uygun mu ?&lt;/button&gt;<br />
+            &lt;button onclick="alert('Url form elemanının uygunluk durumu : ' + <mark>url1.validity.valueMissing</mark>); return false;"&gt;Uygunluk durumu&lt;/button&gt;<br />
+        </div>
+        <br />
+        <b>validity</b> özelliği aşağıdaki değerleri alabilen ValidityState nesnesi döner : 
+        <ul>
+            <li>valueMissing</li>
+            <li>typeMismatch</li>
+            <li>patternMismatch</li>
+            <li>tooLong</li>
+            <li>rangeUnderflow</li>
+            <li>rangeOverflow</li>
+            <li>stepMismatch</li>
+            <li>valid</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Linkler</summary>
+        <p>
+            1. <a href="http://www.modernizr.com/">Modernizr</a> <br />
+        </p>
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

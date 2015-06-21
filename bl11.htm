@@ -1,0 +1,147 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>11. Bölüm : HTML5 Web Sockets</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+</head>
+<script>
+    var connection;
+
+    function connect() {
+        if (typeof WebSocket != undefined) {
+            connection = new WebSocket('ws://node.remysharp.com:8001');
+            connection.onmessage = function (event) {
+                document.getElementById("divSockets").innerHTML += '<br /><b>Onlar : </b>' + event.data;
+            }
+        }
+    }
+
+    function sendMessage() {
+        if (connection!= null && connection.readyState === 1) {
+            var message = document.getElementById('txtMessage').value;
+            connection.send(message);
+            document.getElementById("divSockets").innerHTML += '<br /><b>Biz : </b>' + message;
+            document.getElementById('txtMessage').value = '';
+        } else {
+            document.getElementById("divSockets").innerHTML += '<br />Sunucu Bağlantısı Yok!';
+        }
+    }
+</script>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>11. Bölüm : HTML5 Web Sockets</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>Pooling</summary>
+
+        <figure>
+            <img src="images/ajax-pooling.gif" alt="Pooling Diagramı" />
+            <figcaption>Pooling</figcaption>
+        </figure>
+
+    </details>
+
+    <details>
+        <summary>Piggyback Pooling</summary>
+
+        <figure>
+            <img src="images/piggyback-pooling.gif" alt="Piggyback Pooling Diagramı" />
+            <figcaption>Piggyback Pooling</figcaption>
+        </figure>
+
+    </details>
+
+    <details>
+        <summary>Comet</summary>
+
+        <figure>
+            <img src="images/comet.gif" alt="Comet Diagramı" />
+            <figcaption>Comet</figcaption>
+        </figure>
+
+    </details>
+
+    <details>
+        <summary>Web Socketleri Pooling Karşılaştırması</summary>
+
+        <figure>
+            <img src="images/latency-comparison.gif" alt="Web Socketleri Pooling Karşılaştırması" />
+            <figcaption>Web Socketleri Pooling Karşılaştırması</figcaption>
+        </figure>
+
+    </details>
+
+    <details>
+        <summary>Web Socketleri Demo</summary>
+
+        <a href="http://html5demos.com/web-socket" target=_blank>Web Socket İstemcisi 1</a><br /><br />
+
+        <button onclick="connect();">Web Socket Sunucusuna Bağlan</button>
+        Mesaj : <input type=text id=txtMessage />
+        <button onclick="sendMessage();">Gönder</button><br />
+
+        <h4>Mesajlar :</h4>
+        <div id="divSockets">Durum : Sunucuya Bağlı Değil.</div>
+
+    </details>
+
+    <details>
+        <summary>Web Socketleri Demo Kodları</summary>
+
+        <h4>Html :</h4>
+        <div class="code">
+            &lt;button onclick="connect();"&gt;Web Socket Sunucusuna Bağlan&lt;/button&gt;<br />
+            Mesaj : &lt;input type=text id=txtMessage /&gt;<br />
+            &lt;button onclick="sendMessage();"&gt;Gönder&lt;/button&gt;<br />
+        </div>
+
+        <h4>JavaScript :</h4>
+        <div class="code">
+            var connection;<br />
+            <br />
+            function connect() {<br />
+            &nbsp;&nbsp;&nbsp;if (typeof WebSocket != undefined) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection = new WebSocket('ws://node.remysharp.com:8001');<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.onmessage = function (event) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("divSockets").innerHTML += 'Onlar : ' + event.data;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+            <br />
+            function sendMessage() {<br />
+            &nbsp;&nbsp;&nbsp;if (connection!= null && connection.readyState === 1) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var message = document.getElementById('txtMessage').value;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.send(message);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("divSockets").innerHTML += 'Biz :' + message;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('txtMessage').value = '';<br />
+            &nbsp;&nbsp;&nbsp;} else {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("divSockets").innerHTML += 'Sunucu Bağlantısı Yok!';<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+        </div>
+
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

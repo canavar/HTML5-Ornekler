@@ -1,0 +1,72 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>7. Bölüm : Local storage, Session storage ve Web SQL Veritabanları ile veri saklama</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <script type="text/javascript">
+        function handleStorageEvent(event) {
+            //event = event || window.event; // support IE8
+            var storageKey = event.key;
+            if (event.newValue === null) {
+                document.getElementById('storageResults').innerHTML = document.getElementById('storageResults').innerHTML + '<br />' + storageKey + ' verisi silindi.';
+            } else {
+                document.getElementById('storageResults').innerHTML = document.getElementById('storageResults').innerHTML + '<br />' + storageKey + ' verisi güncellendi, eski değer : \'' + event.oldValue + '\' yeni değer : \'' + event.newValue + '\'';
+            }
+        }
+
+        function attachLocalStorageEvent() {
+            window.addEventListener('storage', handleStorageEvent, false);
+            window.attachEvent('storage', handleStorageEvent);
+        }
+    </script>
+
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>7. Bölüm : WebStorage Eventleri ile veri değişikliklerinden haberdar olma</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>WebStorage Event Demosu</summary>
+        <input type="button" value="localStorage olaylarına kaydol" onclick="attachLocalStorageEvent();" />
+        <div id="storageResults"></div>
+
+        <div class="code">
+            function handleStorageEvent(event) {<br />
+            &nbsp;&nbsp;&nbsp;var storageKey = event.key;<br />
+            &nbsp;&nbsp;&nbsp;if (event.newValue === null) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('storageResults').innerHTML = document.getElementById('storageResults').innerHTML + '<br />' + storageKey + ' verisi silindi.';<br />
+            &nbsp;&nbsp;&nbsp;} else {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('storageResults').innerHTML = document.getElementById('storageResults').innerHTML + '<br />' + storageKey + ' verisi güncellendi, eski değer : \'' + event.oldValue + '\' yeni değer : \'' + event.newValue + '\'';<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br /><br />
+
+            function attachLocalStorageEvent() {<br />
+            &nbsp;&nbsp;&nbsp;window.addEventListener('storage', handleStorageEvent, false);<br />
+            &nbsp;&nbsp;&nbsp;window.attachEvent('storage', handleStorageEvent);<br />
+            }<br />
+        </div>
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

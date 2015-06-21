@@ -1,0 +1,138 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>9. Bölüm : HTML5 Web Messaging API</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <script>
+
+        function searchZargan(textToSearch) {
+            var zarganWindow = (document.getElementById('frameZargan').contentWindow || document.getElementById('frameZargan').contentDocument);
+            zarganWindow.document.getElementById("Sozcuk").value = textToSearch;
+            zarganWindow.document.getElementById("AraForm").submit();
+
+            //document.getElementById('frameZargan').contentWindow.postMessage(textToSearch, 'http://zargan.com');
+        }
+
+        window.addEventListener('message', function (event) {
+            if (event.origin == "http://merhanersoy.net") {
+                document.getElementById('divMessages').innerHTML += 'Gelen Mesaj : ' + event.data + '<br />';
+            } else {
+                document.getElementById('divMessages').innerHTML += 'Gelen Mesaj Reddedildi.';
+            }
+        }, false);
+
+        function sendMessage(messageText) {
+            var targetOrigin = 'http://merhanersoy.net';
+            document.getElementById('frameOtherDomain').contentWindow.postMessage(messageText, targetOrigin);
+
+            // Önceki örnek için :
+            //document.getElementById('frameZargan').contentWindow.postMessage(textToSearch, 'http://zargan.com');
+        }
+    </script>
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>9. Bölüm : HTML5 Web Messaging API</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>Web Messaging'e neden ihtiyacımız var ?</summary>
+        
+        <iframe id="frameZargan" src="http://zargan.com" style="border:1px solid #222222;" width="800" height="225"></iframe>
+        <br />
+        Aranacak Metin : <input type="text" id="txtTextToSearch" />
+        <input type="button" onclick="searchZargan('txtTextToSearch');" value="Gönder" />
+
+        <div class="code">
+            function searchZargan(textToSearch) {<br />
+            &nbsp;&nbsp;&nbsp;var zarganWindow = (document.getElementById('frameZargan').contentWindow || document.getElementById('frameZargan').contentDocument);<br />
+            &nbsp;&nbsp;&nbsp;zarganWindow.document.getElementById("Sozcuk").value = textToSearch;<br />
+            &nbsp;&nbsp;&nbsp;zarganWindow.document.getElementById("AraForm").submit();<br />
+            }<br />
+        </div>
+
+    </details>
+
+    <details>
+        <summary>HTML5 Web Messaging API Demo</summary>
+        
+        <iframe id="frameOtherDomain" src="bl9_1.htm" style="border:1px solid #222222;"></iframe>
+        <br />
+        <h4>Gelen Mesajlar : </h4>
+        <div id="divMessages"></div>
+        <input type="text" id="txtMessage" />
+        <input type="button" onclick="sendMessage(document.getElementById('txtMessage').value);" value="Gönder" />
+
+    </details>
+
+    <details>
+        <summary>Mesajı Gönderen Sayfa Detaylı İnceleme</summary>
+
+        <h4>Mesajı Gönderen Sayfa</h4>
+        <div class="code">
+            &lt;iframe id="frameOtherDomain" src="bl9_1.htm"&gt;&lt;/iframe&gt;<br />
+            &lt;input type="text" id="txtMessage" /&gt;<br />
+            &lt;input type="button" onclick="sendMessage(document.getElementById('txtMessage').value);" value="Gönder" /&gt;
+        </div>
+
+        <h4>Mesajı Gönderen Scriptler</h4>
+        <div class="code">
+            window.addEventListener(<mark>'message'</mark>, function (event) {<br />
+            &nbsp;&nbsp;&nbsp;if (<mark>event.origin</mark> == "http://merhanersoy.net") {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('divMessages').innerHTML += 'Gelen Mesaj : ' + <mark>event.data</mark>;<br />
+            &nbsp;&nbsp;&nbsp;} else {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('divMessages').innerHTML += 'Gelen Mesaj Reddedildi.';<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }, false);<br /><br />
+
+            function sendMessage(messageText) {<br />
+            &nbsp;&nbsp;&nbsp;var targetOrigin = 'http://merhanersoy.net';<br />
+            &nbsp;&nbsp;&nbsp;document.getElementById('frameOtherDomain').contentWindow.<mark>postMessage</mark>(messageText, targetOrigin);<br />
+            &nbsp;&nbsp;&nbsp;// Önceki örnek için : <br />
+            &nbsp;&nbsp;&nbsp;//document.getElementById('frameZargan').contentWindow.postMessage(textToSearch, 'http://zargan.com');<br />
+            }<br />
+        </div>
+
+    </details>
+
+    <details>
+        <summary>Mesajı Alan Sayfa Detaylı İnceleme</summary>
+
+        <h4>Mesajı Alan Scriptler</h4>
+        <div class="code">
+            window.addEventListener('message', function (event) {<br />
+            &nbsp;&nbsp;&nbsp;if (event.origin == "http://merhanersoy.net") {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('divMessages').innerHTML += 'Gelen Mesaj : ' + event.data;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var returnMessage = 'Gönderdiğiniz mesaj alındı.';<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mark>event.source.postMessage(returnMessage, event.origin);</mark><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('divMessages').innerHTML += 'Gönderilen Mesaj : ' + returnMessage;<br />
+            &nbsp;&nbsp;&nbsp;} else {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('divMessages').innerHTML += 'Gelen Mesaj Reddedildi.';<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }, false);<br />
+        </div>
+
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

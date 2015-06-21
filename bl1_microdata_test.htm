@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang=tr>
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+    <title>1. Bölüm : Microdata test sayfası</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+</head>
+<body>
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>1. Bölüm : Microdata test sayfası</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <section itemscope itemtype="http://data-vocabulary.org/Person">
+        <img src="images/logo.png" style="float:left;" itemprop="photo" />
+        Kişisel blog'u <a href="http://merhanersoy.net" itemprop="url">merhanersoy.net</a> olan <span itemprop="name">Mustafa Erhan Ersoy</span> 
+        <span itemprop="affiliation">özel bir firma</span>da <span itemprop="title">Yazılım Mühendisi</span> olarak çalışmaktadır.
+    </section>
+  
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+</body>
+</html>

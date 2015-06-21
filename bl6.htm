@@ -1,0 +1,87 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>6. Bölüm : HTML5 ile caching ve offline içerik</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>6. Bölüm : HTML5 ile caching ve offline içerik</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>One manifest to rule them all !</summary>
+
+        <h4>Manifesto dosyası tanımı</h4>
+        
+        <b>*** Manifesto dosyası, web sunucusunda text/cache-manifest mime type ile sunulmalı.</b><br /><br />
+
+        <div class=code>
+            &lt;!doctype html&gt;<br />
+            &lt;html lang="tr" <mark> manifest="bl6demo.manifest"</mark>&gt;<br />
+            &lt;/html&gt;
+        </div>
+
+        <h4>Manifesto dosyası içeriği</h4>
+        <div class=code>
+            <mark>CACHE MANIFEST</mark><br />
+            bl6_offline_example.htm<br />
+            bl6demo.css<br />
+            <br />
+            NETWORK:<br />
+            *<br />
+            <br />
+            # version : 2
+        </div>
+        <br />
+        <a href="bl6_cache_example.htm" target="_blank">Offline İçerik Örneği</a>
+
+    </details>
+
+    <details>
+        <summary>Fallback kategorisi</summary>
+        
+        <div class=code>
+            CACHE MANIFEST<br />
+            <br />
+            CACHE:<br />
+            bl6_offline_example.htm<br />
+            bl6_fallback_example.htm<br />
+            bl6demo.css<br />
+            <br />
+            FALLBACK:<br />
+            scripts/online.js scripts/offline.js<br />
+            /html5 /html5/bl6_offline.html<br />
+            <br />
+            NETWORK:<br />
+            *<br />
+            <br />
+            # version : 2
+        </div>
+        <br />
+        <a href="bl6_fallback_example.htm" target="_blank">Fallback Örneği</a>
+
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

@@ -1,0 +1,92 @@
+﻿body 
+{
+  background-attachment:initial;
+  background-clip:initial;
+  background-color:initial;
+  background-image:none;
+  background-origin:initial;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  font:normal normal normal 1em/normal Georgia, serif;
+}
+
+details {
+  background-attachment:initial;
+  background-clip:initial;
+  background-color:#F8F7EF;
+  background-image:initial;
+  background-origin:initial;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  border-bottom-color:#B2B2B2;
+  border-bottom-style:dashed;
+  border-bottom-width:1px;
+  border-image:initial;
+  border-left-color:#B2B2B2;
+  border-left-style:dashed;
+  border-left-width:1px;
+  border-right-color:#B2B2B2;
+  border-right-style:dashed;
+  border-right-width:1px;
+  border-top-color:#B2B2B2;
+  border-top-style:dashed;
+  border-top-width:1px;
+  margin-bottom:0.5em;
+  margin-left:0.5em;
+  margin-right:0.5em;
+  margin-top:0.5em;
+  padding-bottom:0.5em;
+  padding-left:0.5em;
+  padding-right:0.5em;
+  padding-top:0.75em;
+  text-align:left;
+}
+
+summary 
+{
+    font:normal normal normal 1em/normal Georgia, serif;
+    font-weight:bold;
+}
+
+footer 
+{
+ text-align:center;
+ font: normal normal 95%/1.6em 
+}
+
+a:link, a:visited 
+{
+    color:#A36C2C;
+    border-bottom-color:#A36C2C;
+    border-left-color:#A36C2C;
+    border-right-color:#A36C2C;
+    border-top-color:#A36C2C;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color:#333333;
+}
+
+figcaption
+{
+    border-top-color:#CCCCCC;
+    border-top-style:dashed;
+    border-top-width:1px;
+    color:#333333;
+    font:italic normal normal 95%/1.6em Georgia, serif;
+}
+
+.code 
+{
+    border-color:#CCCCCC;
+    border-style:dashed;
+    border-width:1px;
+    background-color:#FFFFFF;
+    color:#333333;
+    font:italic normal normal 95%/1.6em Georgia, serif;
+    padding-bottom:0.75em;
+    padding-left:0.75em;
+    padding-right:0.75em;
+    padding-top:0.75em;
+}
+

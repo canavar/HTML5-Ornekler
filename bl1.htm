@@ -1,0 +1,225 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>1. Bölüm : HTML5 döküman yapısı, header, article, footer, nav, aside tagları</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <script type="text/javascript">
+        // <meter> tagı için demo metodu
+        function incrementMeter() {
+            var currentValue = parseInt(document.getElementById('mt1').value);
+            var maxValue = parseInt(document.getElementById('mt1').max);
+            if (currentValue < maxValue) {
+                document.getElementById('mt1').value = currentValue + (10 * Math.random());
+                setTimeout(incrementMeter, 200);
+            }
+        }
+
+        // <meter> tagı için demo metodu
+        function clearMeter() {
+            document.getElementById('mt1').value = 0;
+        }
+    </script>
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>1. Bölüm : HTML5 döküman yapısı, header, article, footer, nav, aside tagları</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>Merhaba HTML5!</summary>
+        <p>
+            Eski DocType : <span class=code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span>
+            <br /><br />
+            Yeni DocType : <span class=code>&lt;!doctype html&gt;</span>
+        </p>
+    </details>
+    
+
+    <details>
+        <summary>Meta Tagı</summary>
+        <p>
+            Eski Meta Tag'i : <span class=code>&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;</span>
+            <br /><br />
+            Yeni Meta Tag'i : <span class=code>&lt;meta charset=UTF-8&gt;</span>
+        </p>
+    </details>
+
+    <details>
+        <summary>Eski Tip Döküman Yapısı</summary>
+        <figure>
+                <img src="images/structure-div.gif" alt="Div kullanılarak oluşturulmuş eski tip döküman yapısı" />
+                <figcaption>Div kullanılarak oluşturulmuş eski tip döküman yapısı</figcaption>
+        </figure>
+    </details>
+
+    <details>
+        <summary>HTML5 Döküman Yapısı</summary>
+        <figure>
+                <img src="images/structure-html5.gif" alt="HTML5 ile oluşturulmuş yeni tip döküman yapısı" />
+                <figcaption>HTML5 ile oluşturulmuş yeni tip döküman yapısı</figcaption>
+                <br />
+                <a href="bl1_html5_dokuman_yapisi.htm" target="_blank">HTML5 ile oluşturulmuş blog örneği</a>
+        </figure>
+    </details>
+
+    <details>
+        <summary>Dialog Tagı</summary>
+        <dialog>
+            <dt id="yorum1">Selahattin</dt>
+            <dd>Orçun seni seviyorum oğlum</dd>
+            <dt id="yorum2">Orçun</dt>
+            <dd>Ok...</dd>
+            <dt id="yorum3">Selahattin</dt>
+            <dd>Ney ? Ok mi ? Oğlum seni seviyorum diyorum oğlum, okmiş, camış...</dd>
+        </dialog>
+
+        <div class="code">
+            &lt;dialog&gt;<br />
+                &lt;dt id="yorum1"&gt;Selahattin&lt;/dt&gt;<br />
+                &lt;dd&gt;Orçun seni seviyorum oğlum&lt;/dd&gt;<br />
+                &lt;dt id="yorum2"&gt;Orçun&lt;/dt&gt;<br />
+                &lt;dd&gt;Ok...&lt;/dd&gt;<br />
+            &lt;/dialog&gt;<br />
+        </div>
+    </details>
+
+    <details>
+        <summary>&lt;time&gt; Tagı</summary>
+        <ul>
+            <li>Ekran okuyucuların tarih'i daha iyi okuyabilmesi için</li>
+            <li>Arama motorlarının, sayfa içeriğini daha iyi ayrıştırabilmesi için</li>
+            <li>Tarayıcıların tarihi, yerel takvime çevirebilmesi için</li>
+            <li>Tarayıcıların içeriğe göre randevu oluşturabilmesi, hatırlatıcılar ekleyebilmesi için kullanılabilir.</li>
+        </ul>
+        <br />
+        <span class=code>&lt;time datetime="2012-01-10T22:21:13.000+02:00" pubdate&gt;Şimdi&lt;/time&gt;</span>
+        <br />&nbsp;
+    </details>
+
+    <details>
+        <summary>&lt;details&gt; Tagı</summary>
+        <div class=code>
+            &lt;details open=true&gt;<br />
+                &nbsp;&nbsp;&nbsp;&lt;summary&gt;Başlık Alanı&lt;/summary&gt;<br />
+                &nbsp;&nbsp;&nbsp;&lt;p&gt;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Detaylı açıklama alanı buraya yazılır.<br />
+                &nbsp;&nbsp;&nbsp;&lt;/p&gt;<br />
+            &lt;/details&gt;
+        </div>
+
+        <details open=true>
+            <summary>Başlık Alanı</summary><br />
+            <p><br />
+            Detaylı açıklama alanı buraya yazılır.<br />
+            </p><br />
+        </details>
+    </details>
+
+    <details>
+        <summary>&lt;figure&gt; Tagı</summary>
+        <div class=code>
+            &lt;figure&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;img src="images/logo.png" /&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;figcaption&gt;HTML5 logo&lt;/figcaption&gt;<br />
+            &lt;/figure>
+        </div>
+        <figure>
+            <img src="images/logo.png" />
+            <figcaption>HTML5 logo</figcaption>
+        </figure>
+    </details>
+
+    <details>
+        <summary>&lt;mark&gt; Tagı</summary>
+        <div class=code>
+            &lt;mark&gt;mark tagı&lt;/mark&gt; &lt;em&gt;em tagı&lt;/em&gt; değildir.
+        </div>
+        <br />
+        <mark>mark tagı</mark> <em>em tagı</em> değildir.
+    </details>
+
+    <details>
+        <summary>&lt;progress&gt; ve &lt;meter&gt; Tagları</summary>
+
+        <div class=code>
+            &lt;script type="text/javascript"&gt;<br />
+            &nbsp;&nbsp;&nbsp;function incrementMeter() {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var currentValue = parseInt(document.getElementById('mt1').value);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var maxValue = parseInt(document.getElementById('mt1').max);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (currentValue < maxValue) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('mt1').value = currentValue + (10 * Math.random());<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setTimeout(incrementMeter, 200);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &lt;/script&gt;<br /><br />
+
+            &lt;meter id="mt1" value="0" min="0" max="200" style="width:200px;"&gt;200 de 0&lt;/meter&gt;<br /><br />
+
+            &lt;button onclick="incrementMeter();"&gt;Başlat&lt;/button&gt;
+        </div>
+
+        <br />
+
+        <meter id="mt1" value="0" min="0" max="200" style="width:200px;">200 de 0</meter>
+
+        <button onclick="incrementMeter();">Başlat</button>
+        <button onclick="clearMeter();">Temizle</button>
+    </details>
+
+    <details>
+        <summary>Çıkarılan Taglar</summary>
+        <br />
+        &lt;applet&gt;, &lt;big&gt;, &lt;blink&gt;, &lt;center&gt;, &lt;font&gt;, &lt;marquee&gt;, &lt;frame&gt; (&lt;iframe&gt; ?!?)
+    </details>
+
+    <details>
+        <summary>Microdata ile HTML'yi genişletmek</summary>
+
+        <div class="code">
+            &lt;section <mark>itemscope</mark> <mark>itemtype</mark>="http://data-vocabulary.org/Person"&gt;<br />
+                &nbsp;&nbsp;&nbsp;&lt;img src="images/logo.png" style="float:left;" <mark>itemprop</mark>="photo" /&gt;<br />
+                &nbsp;&nbsp;&nbsp;Kişisel blog'u &lt;a href="http://merhanersoy.net" <mark>itemprop</mark>="url"&gt;merhanersoy.net&nbsp;/a&gt; olan &lt;span <mark>itemprop</mark>="name"&gt;Mustafa Erhan Ersoy&lt;/span&gt; <br />
+                &nbsp;&nbsp;&nbsp;&lt;span <mark>itemprop</mark>="affiliation">özel bir firma&lt;/span&gt;da &lt;span <mark>itemprop</mark>="title"&gt;Yazılım Mühendisi&lt;/span&gt; olarak çalışmaktadır.<br />
+            &lt;/section&gt;<br />
+        </div>
+
+        <a href="bl1_microdata_test.htm" rel="nofollow">Microdata Test Sayfası</a> <br />
+        <a href="http://support.google.com/webmasters/bin/answer.py?hl=en&answer=99170">Google Rich Snippets</a> <br />
+        <a href="http://www.data-vocabulary.org/">Google's data-vocabulary sağlayıcısı</a> <br />
+        <a href="http://www.google.com/webmasters/tools/richsnippets">Rich Snippet Test Aracı</a> <br />
+        
+    </details>
+    
+    <details>
+        <summary>Linkler</summary>
+        <p>
+            1. <a href="http://code.google.com/webstats/2005-12/classes.html">Webdeki popular class değerleri (2005)</a> <br />
+            2. <a href="http://devfiles.myopera.com/articles/572/idlist-url.htm">Webdeki popular id değerleri (2009)</a> <br />
+            3. <a href="http://html5.validator.nu/">HTML5 Validator</a> <br />
+            4. <a href="http://code.google.com/p/h5o/">HTML5 Outliner</a> <br />
+        </p>
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

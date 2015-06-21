@@ -1,0 +1,167 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>5. Bölüm : HTML5 File API</title>
+    <meta charset=UTF-8>
+
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <style>
+    #fileDropArea { border: 5px dashed black; width: 800px; height: 200px; margin: 10px auto; text-align:center;}
+    #fileDropArea.hover { border: 5px dashed red; }
+    </style>
+
+    <script type="text/javascript">
+        function filesSelected() {
+            var fileList = document.getElementById('file1').files; // FileList nesnesi
+
+            var result = "Seçilen Dosyalar : <br />";
+            for (var i = 0; i < fileList.length; i++) {
+                var file = fileList[i]; // File nesnesi
+                result += "<b>Dosya : </b>" + file.name + " (" + file.size + "byte) <b>Dosya Tipi : </b>" + file.type + " <b>Son Güncellenme : </b>" + file.lastModifiedDate + "<br />";
+            }
+            document.getElementById('output1').innerHTML = result;
+        }
+    </script>
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>5. Bölüm : HTML5 File API</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>File ve FileList nesneleri</summary>
+        <input type="file" id="file1" multiple onchange="filesSelected();" /><br />
+        <output id="output1"></output>
+
+        <br />
+        <div class="code">
+            &lt;input type="file" id="file1" <mark>multiple</mark> onchange="filesSelected();" /&gt;<br />
+            &lt;output id="output1"&gt;&lt;/output&gt;
+        </div>
+        <div class="code">
+            function filesSelected() {<br />
+            &nbsp;&nbsp;&nbsp;var fileList = document.getElementById('file1').files; // FileList nesnesi<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;var result = "Seçilen Dosyalar : ";<br />
+            &nbsp;&nbsp;&nbsp;for (var i = 0; i < fileList.length; i++) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var file = fileList[i]; // File nesnesi<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mark>result += "Dosya : " + file.name + " (" + file.size + "byte) Dosya Tipi : " + file.type + " Son Güncellenme : " + file.lastModifiedDate;</mark><br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;document.getElementById('output1').innerHTML = result;<br />
+            }
+        </div>
+    </details>
+
+    <details>
+        <summary>Sürükle bırak ile dosya seçme</summary>
+        <div id="fileDropArea">Dosyalarınızı buraya sürükleyip bırakın</div>
+        <script>
+            var fileDropArea = document.getElementById('fileDropArea');
+
+            fileDropArea.ondragover = function () { this.className = 'hover'; return false; };
+            fileDropArea.ondragend = function () { this.className = ''; return false; };
+            fileDropArea.ondrop = function (e) {
+                this.className = '';
+                e.preventDefault();
+
+                var file = e.dataTransfer.files[0];
+                var reader = new FileReader();
+                reader.onload = function (event) {
+
+                    fileDropArea.style.background = 'url(' + event.target.result + ') no-repeat center';
+                };
+                reader.readAsDataURL(file);
+                return false;
+            };
+        </script>
+
+        <br />
+        <div class="code">
+            &lt;div id="fileDropArea"&gt;Dosyalarınızı buraya sürükleyip bırakın&lt;/div&gt;<br />
+            &lt;script&gt;<br />
+            &nbsp;&nbsp;&nbsp;var fileDropArea = document.getElementById('fileDropArea');<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;fileDropArea.ondragover = function () { this.className = 'hover'; return false; };<br />
+            &nbsp;&nbsp;&nbsp;fileDropArea.ondragend = function () { this.className = ''; return false; };<br />
+            &nbsp;&nbsp;&nbsp;fileDropArea.ondrop = function (e) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.className = '';<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.preventDefault();<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var file = e.dataTransfer.files[0];<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var reader = new FileReader();<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reader.onload = function (event) {<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileDropArea.style.background = 'url(' + event.target.result + ') no-repeat center';<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reader.readAsDataURL(file);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br />
+            &nbsp;&nbsp;&nbsp;};<br />
+            &lt;/script&gt;<br />
+        </div>
+        
+    </details>
+
+    <details>
+        <summary>FileReader ile dosyaları okumak</summary>
+
+        <ul>
+            <li>FileReader.readAsBinaryString(file_blob)</li>
+            <li>FileReader.readAsText(file_blob, encoding)</li>
+            <li>FileReader.readAsDataURL(file_blob)</li>
+            <li>FileReader.readAsArrayBuffer(file_blob)</li>
+        </ul>
+
+        <div class="code">
+
+            var file = e.dataTransfer.files[0];<br />
+            var reader = new FileReader();<br />
+            reader.onload = function (event) {<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;fileDropArea.style.background = 'url(' + <mark>event.target.result</mark> + ') no-repeat center';<br />
+            &nbsp;&nbsp;&nbsp;};<br />
+            reader.<mark>readAsDataURL(file)</mark>;<br />
+            };<br />
+        </div>
+        
+    </details>
+
+    <details>
+        <summary>File.Slice() ile dosyaları parçalı okumak</summary>
+
+        <b>Blob : </b><b>B</b>inary <b>L</b>arge <b>Ob</b>ject<br />
+
+        <div class="code">
+            var reader = new FileReader();<br />
+            var blob;<br />
+            if (file.webkitSlice) {<br />
+            &nbsp;&nbsp;&nbsp;blob = file.webkitSlice(startIndex, endIndex);<br />
+            } else if (file.mozSlice) {<br />
+            &nbsp;&nbsp;&nbsp;blob = file.mozSlice(startIndex, endIndex);<br />
+            }<br />
+            <br />
+            reader.readAsBinaryString(blob);<br />
+        </div>
+        
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

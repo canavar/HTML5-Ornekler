@@ -1,0 +1,262 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>7. Bölüm : Local storage, Session storage ve Web SQL Veritabanları ile veri saklama</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <script type="text/javascript">
+        function setToLocalStorage(text) {
+            // localStorage.setItem('demoVariable', text);
+            localStorage.demoVariable = text;
+        }
+
+        function getFromLocalStorage() {
+            // return localStorage.getItem('demoVariable');
+            return localStorage.demoVariable;
+        }
+
+        function deleteFromLocalStorage() {
+            // localStorage.removeItem('demoVariable');
+            delete localStorage.demoVariable;
+        }
+
+        function clearLocalStorage() {
+            var storageLength = localStorage.length;
+            localStorage.clear();
+            alert(storageLength + ' tane kayıt localStorage\'dan silindi.');
+        }
+
+        function listLocalStorage() {
+            for (var i = 0; i < localStorage.length; i++) {
+                var currentKey = localStorage.key(i);
+                alert(currentKey + ' : ' + localStorage.getItem(currentKey));
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        var db;
+        function createDb() {
+            if (window.openDatabase) {
+                // 2 MB'lık veritabanı oluştur :
+                var dbName = 'html5DemoDb';
+                var dbDesc = 'HTML5 Demo Db';
+                var version = '1.0';
+                var size = 2 * 1024 * 1024;
+                db = openDatabase(dbName, version, dbDesc, size);
+            }
+        }
+
+        function createTable() {
+            if (db === null) {
+                createDb();
+            }
+            if (db !== null) {
+                db.transaction(function (tx) {
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS messages (message, date)');
+                });
+            }
+        }
+
+        function insertData(data) {
+            if (db === null) {
+                createDb();
+            }
+            if (db !== null) {
+                db.transaction(function (tx) {
+                    tx.executeSql('INSERT INTO messages (message, date) VALUES (?, ?)', [data, new Date()]);
+                });
+            }
+        }
+
+        function listData() {
+            if (db === null) {
+                createDb();
+            }
+            if (db !== null) {
+                db.transaction(function (tx) {
+                    tx.executeSql('SELECT * FROM messages', [],
+                        function (tx, results) {
+                            for (var index = 0; index < results.rows.length; index++) {
+                                var message = results.rows.item(index).message;
+                                var date = results.rows.item(index).date;
+                                document.getElementById('divDbRows').innerHTML = document.getElementById('divDbRows').innerHTML + '<br />[' + date + '] ' + message;
+                            }
+                        }
+                    );
+                });
+            }
+        }
+    </script>
+
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>7. Bölüm : Local storage, Session storage ve Web SQL Veritabanları ile veri saklama</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>İstemci tarafında veri saklama</summary>
+        <p>
+            HTML5 ile gelen istemci tarafında veri saklama seçenekleri : 
+        </p>
+        <ul>
+            <li>Web Storage</li>
+            <li>WebSQL Veritabanı</li>
+            <li>IndexedDB</li>
+        </ul>
+        <p>Limitler : </p>
+        <ul>
+            <li>Web Storage, en çok 5MB yer kullanabilir.</li>
+            <li>Saklanan verilere erişimde protokol, host, port sınırlaması.</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Web Storage</summary>
+        <p>
+            HTML5 Web Storage ile gelen 2 tip veri saklama imkanımız var : 
+        </p>
+        <ul>
+            <li>localStorage</li>
+            <li>sessionStorage</li>
+        </ul>
+        <input type="text" id="txtValue" /><br />
+        <input type="button" value="localStorage'a Kaydet" onclick="setToLocalStorage(document.getElementById('txtValue').value);" />
+        <input type="button" value="localStorage'dan Oku" onclick="alert('Saklanan değer : ' + getFromLocalStorage());" />
+        <input type="button" value="localStorage'dan Sil" onclick="deleteFromLocalStorage();" />
+        <input type="button" value="localStorage'ı Temizle" onclick="clearLocalStorage();" />
+        <input type="button" value="localStorage'ı Listele" onclick="listLocalStorage();" />
+        <a href="bl7_webstorage_event_demosu.htm" target="_blank">WebStorage Event Demosu</a>
+
+        <div class=code>
+            function setToLocalStorage(text) {<br />
+            &nbsp;&nbsp;&nbsp;// localStorage.setItem('demoVariable', text);<br />
+            &nbsp;&nbsp;&nbsp;localStorage.demoVariable = text;<br />
+            }<br />
+            <br />
+            function getFromLocalStorage() {<br />
+            &nbsp;&nbsp;&nbsp;// return localStorage.getItem('demoVariable');<br />
+            &nbsp;&nbsp;&nbsp;return localStorage.demoVariable;<br />
+            }<br />
+            <br />
+            function deleteFromLocalStorage() {<br />
+            &nbsp;&nbsp;&nbsp;// localStorage.removeItem('demoVariable');<br />
+            &nbsp;&nbsp;&nbsp;delete localStorage.demoVariable;<br />
+            }<br />
+            <br />
+            function clearLocalStorage() {<br />
+            &nbsp;&nbsp;&nbsp;var storageLength = localStorage.length;<br />
+            &nbsp;&nbsp;&nbsp;localStorage.clear();<br />
+            &nbsp;&nbsp;&nbsp;alert(storageLength + ' tane kayıt localStorage\'dan silindi.');<br />
+            }<br />
+            <br />
+            function listLocalStorage() {<br />
+            &nbsp;&nbsp;&nbsp;for (var i = 0; i < localStorage.length; i++) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var currentKey = localStorage.key(i);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(currentKey + ' : ' + localStorage.getItem(currentKey));<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+        </div>
+
+    </details>
+
+    <details>
+        <summary>WebSQL Veritabanı</summary>
+
+        <div class="code">
+        db.transaction(function (tx) {<br />
+        &nbsp;&nbsp;&nbsp;tx.executeSql(sql, [], function (tx, results) {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// dönen değerler burada işlenir (commit)<br />
+        &nbsp;&nbsp;&nbsp;});<br />
+        &nbsp;&nbsp;&nbsp;}, function (tx, error) {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// onError (rollback)<br />
+        &nbsp;&nbsp;&nbsp;}
+        });
+        </div>
+        <br /><br />
+        <input type="button" value="Veritabanı Oluştur" onclick="createDb();" />
+        <input type="button" value="Tablo Oluştur" onclick="createTable();" /><br />
+        <input type="text" id="txtData" />
+        <input type="button" value="Tabloya Veri Ekle" onclick="insertData(document.getElementById('txtData').value);" />
+        <input type="button" value="Mevcut Verileri Çek" onclick="listData();" /><br />
+        <div id="divDbRows"></div>
+
+        <div class="code">
+            var db;<br />
+            function createDb() {<br />
+            &nbsp;&nbsp;&nbsp;if (window.openDatabase) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 2 MB'lık veritabanı oluştur :<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var dbName = 'html5DemoDb';<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var dbDesc = 'HTML5 Demo Db';<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var version = '1.0';<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var size = 2 * 1024 * 1024;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db = openDatabase(dbName, version, dbDesc, size);<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+            <br />
+            function createTable() {<br />
+            &nbsp;&nbsp;&nbsp;if (db === null) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;createDb();<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;if (db !== null) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db.transaction(function (tx) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tx.executeSql('CREATE TABLE IF NOT EXISTS messages (message, date)');<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+            <br />
+            function insertData(data) {<br />
+            &nbsp;&nbsp;&nbsp;if (db === null) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;createDb();<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;if (db !== null) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db.transaction(function (tx) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tx.executeSql('INSERT INTO messages (message, date) VALUES (?, ?)', [data, new Date()]);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+            <br />
+            function listData() {<br />
+            &nbsp;&nbsp;&nbsp;if (db === null) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;createDb();<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;if (db !== null) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db.transaction(function (tx) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tx.executeSql('SELECT * FROM messages', [],<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function (tx, results) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (var index = 0; index < results.rows.length; index++) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var message = results.rows.item(index).message;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var date = results.rows.item(index).date;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('divDbRows').innerHTML = document.getElementById('divDbRows').innerHTML + '<br />[' + date + '] ' + message;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            }<br />
+        </div>
+
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

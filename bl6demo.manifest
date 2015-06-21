@@ -1,0 +1,15 @@
+CACHE MANIFEST
+
+CACHE:
+bl6_cache_example.htm
+bl6_fallback_example.htm
+bl6demo.css
+
+FALLBACK:
+/html5 /html5/bl6_offline.html
+scripts/online.js scripts/offline.js
+
+NETWORK:
+*
+
+# version : 1

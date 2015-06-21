@@ -1,0 +1,196 @@
+﻿<!doctype html>
+
+<html lang=tr>
+<head>
+    <title>3. Bölüm : Video ve audio tagları ile multimedia</title>
+    <meta charset=UTF-8>
+    <link href="main.css" rel="Stylesheet" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+</head>
+<body>
+
+<div>
+    <img src="images/zenith.jpg" style="float:right;" />
+    <header> 
+        <hgroup>
+            <h2>HTML5</h2> 
+            <h4>3. Bölüm : Video ve audio tagları ile multimedia</h4> 
+        </hgroup>
+    </header> 
+</div>
+
+    <details>
+        <summary>Video tagı</summary>
+        <video controls id="videoPlayer" preload="auto">
+            <source src="messi.mp4" type="video/mp4" />
+            <source src="messi.ogv" type="video/ogg" />
+            <source src="messi.webm" type="video/webm" />
+            <p>
+                Tarayıcınız HTML5 Video tagını desteklemiyor. <br />
+                Videoyu indirmek için : <a href="messi.mp4">messi.mp4</a> veya <a href="messi.ogv">messi.ogv</a> linklerine tıklayınız.<br />
+                Buraya Adobe Flash Player konulabilir.
+            </p>
+        </video>
+        <div class=code>
+            &lt;video controls id="videoPlayer"&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;source src="messi.mp4" type="video/mp4" /&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;source src="messi.ogv" type="video/ogg" /&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;source src="messi.webm" type="video/webm" /&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;p&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tarayıcınız HTML5 Video tagını desteklemiyor. <br />
+            &nbsp;&nbsp;&nbsp;&lt;/p&gt;<br />
+            &lt;/video&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Tarayıcıların codec desteği</summary>
+        <figure>
+                <img src="images/video_codec_support.jpg" alt="Tarayıcıların video codec desteği" />
+                <figcaption>Tarayıcıların video codec desteği</figcaption>
+        </figure>
+
+        <figure>
+                <img src="images/audio_codec_support.jpg" alt="Tarayıcıların audio codec desteği" />
+                <figcaption>Tarayıcıların audio codec desteği</figcaption>
+        </figure>
+    </details>
+
+    <details>
+        <summary>Video tagı özellikleri</summary>
+        <ul>
+            <li>autoplay</li>
+            <li>controls</li>
+            <li>poster (kapak resmi)</li>
+            <li>loop</li>
+            <li>preload : auto (preload önerisi) | none (preload etme) | metadata (sadece meta bilgileri indir)</li>
+            <li>src</li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>Source tagı özellikleri</summary>
+        <ul>
+            <li>src</li>
+            <li>type</li>
+            <li>codecs</li>
+            <li>media</li>
+        </ul>
+
+        <div class=code>
+            &lt;video&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;source src="yuksek-kalite.ogv" type="video/ogg" media="(min-device-width:600px)" codecs="theora, vorbis" /&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;source src="dusuk-kalite.ogv" type="video/ogg" codecs="theora, vorbis" /&gt;<br />
+            &lt;/video&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Track tagı ve altyazı</summary>
+        <video controls id="videoPlayerWithSubtitle">
+            <source src="messi.mp4" type="video/mp4" />
+            <source src="messi.ogv" type="video/ogg" />
+            <source src="messi.webm" type="video/webm" />
+            <track src=messi.tr.vtt kind=subtitles label="Türkçe Altyazı" srclang=tr default>
+            <track src=messi.en.vtt kind=subtitles label="English Subtitles" srclang=en>
+        </video>
+        
+        <br /><br /><b>*** Henüz hiç bir tarayıcı desteklemiyor. (Google Chrome Canary hariç)</b><br /><br />
+
+        <div class=code>
+            &lt;video&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;source src="messi.mp4" type="video/mp4" /&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;source src="messi.ogv" type="video/ogg" /&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;track src=messi.tr.vtt kind=subtitles label="Türkçe Altyazı" srclang=tr default /&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;track src=messi.en.vtt kind=subtitles label="English Subtitles" srclang=en /&gt;<br />
+            &lt;/video&gt;
+        </div>
+
+        <b>WebVTT Altyazı Formatı : </b>
+        <div class=code>
+            WEBVTT FILE<br /><br />
+
+            1<br />
+            00:00:00.500 --> 00:00:06.000<br />
+            Lionel Messi, Messi, Messi, Messi...<br /><br />
+
+            2<br />
+            00:00:06.500 --> 00:00:08.000<br />
+            Bu adam neyin nesi ? <br /><br />
+
+            3<br />
+            00:00:10.000 --> 00:00:23.000<br />
+            Merhaba HTML5 !<br />
+        </div>
+    </details>
+
+    <details>
+        <summary>Audio tagı özellikleri</summary>
+        <audio src="messi.mp4" controls id="audioPlayer">
+            <p>
+                Tarayıcınız HTML5 Audio tagını desteklemiyor. <br />
+                Müzik parçasını indirmek için : <a href="messi.mp4">messi.mp4</a> veya <a href="messi.ogv">messi.ogv</a> linklerine tıklayınız.<br />
+                Buraya Adobe Flash Player konulabilir.
+            </p>
+        </audio>
+
+        <div class=code>
+            &lt;audio controls id="audioPlayer" src="messi.mp4"&gt;<br />
+            &nbsp;&nbsp;&nbsp;&lt;p&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tarayıcınız HTML5 Audio tagını desteklemiyor. <br />
+            &nbsp;&nbsp;&nbsp;&lt;/p&gt;<br />
+            &lt;/audio&gt;
+        </div>
+    </details>
+
+    <details>
+        <summary>Media API ile kendi video panelimizi oluşturalım</summary>
+        <video src="messi.mp4" id="customVideoPlayer"></video><br />
+
+        Video Oynatıcı Durumu : <span id="videoState">-</span><br /><br />
+
+        <input type=button value="Oynat" onclick="document.getElementById('customVideoPlayer').play();" />
+        <input type=button value="Durdur" onclick="document.getElementById('customVideoPlayer').pause();" />
+
+        <script type="text/javascript">
+            var video = document.getElementById('customVideoPlayer');
+            var videoStateLabel = document.getElementById('videoState');
+            video.addEventListener('play', function () { videoStateLabel.innerHTML = '<b>play</b> olayı tetiklendi !'; }, false);
+            video.addEventListener('pause', function () { videoStateLabel.innerHTML = '<b>pause</b> olayı tetiklendi !'; }, false);
+            video.addEventListener('ended', function () { videoStateLabel.innerHTML = '<b>ended</b> olayı tetiklendi !'; }, false);
+        </script>
+
+        <div class=code>
+            &lt;video src="messi.mp4" id="Video1"&gt;&lt;/video&gt;<br />
+            &lt;input type=button value="Oynat" onclick="document.getElementById('customVideoPlayer').play();" /&gt;<br />
+            &lt;input type=button value="Durdur" onclick="document.getElementById('customVideoPlayer').pause();" /&gt;<br />
+        </div>
+        <br />
+        <div class=code>
+            var video = document.getElementById('customVideoPlayer');<br />
+            var videoStateLabel = document.getElementById('videoState');<br />
+            video.addEventListener('play', function () { videoStateLabel.innerHTML = 'play olayı tetiklendi !'; }, false);<br />
+            video.addEventListener('pause', function () { videoStateLabel.innerHTML = 'pause olayı tetiklendi !'; }, false);<br />
+            video.addEventListener('ended', function () { videoStateLabel.innerHTML = 'ended olayı tetiklendi !'; }, false);<br />
+        </div>
+    </details>
+
+    <details>
+        <summary>Linkler</summary>
+        <p>
+            1. <a href="http://www.mirovideoconverter.com/">Miro Video Converter</a> <br />
+        </p>
+    </details>
+
+    <footer> 
+        <nav>
+            <a href="default.htm">Anasayfaya Geri Dön</a>
+        </nav>
+        <small>HTML5 @ <a href="http://webucu.org/">webucu.org</a></small> 
+    </footer>
+
+</body>
+</html>
+
+

@@ -177,6 +177,23 @@
     </details>
 
     <details>
+        <summary>Media API ile videoyu belli bir pozisyondan başlatalım</summary>
+        <video src="messi.mp4" controls id="videoPlayerToSetPosition"></video><br />
+
+        <script type="text/javascript">
+            document.getElementById('videoPlayerToSetPosition').addEventListener('loadedmetadata', function () {
+                this.currentTime = 10;
+            }, false);
+        </script>
+
+        <div class=code>
+            document.getElementById('videoPlayerToSetPosition').addEventListener('loadedmetadata', function () {<br />
+                this.currentTime = 10;<br />
+            }, false);<br />
+        </div>
+    </details>
+
+    <details>
         <summary>Linkler</summary>
         <p>
             1. <a href="http://www.mirovideoconverter.com/">Miro Video Converter</a> <br />
